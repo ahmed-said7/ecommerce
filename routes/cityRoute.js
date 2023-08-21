@@ -1,7 +1,23 @@
 let router=require('express').Router();
 let {createCity,getCities,getCity,deleteCity,updateCity}=require('../services/cityServices');
 
-router.route('/').post(createCity).get(getCities);
-router.route('/:id').get(getCity)
-    .delete(deleteCity).put(updateCity);
+let {updateCityValidator,createCityValidator
+    ,deleteCityValidator,getCityValidator}=
+    require('../validator/cityValidator');
+
+let {protected,allowedTo}=require('../services/authServices');
+router.use(protected);
+
+
+router.route('/')
+    .post(createCityValidator,createCity).
+    get(getCities);
+
+
+router.route('/:id')
+    .get(getCityValidator,getCity)
+    .delete(deleteCityValidator,deleteCity)
+    .put(updateCityValidator,updateCity);
+
+
 module.exports=router;

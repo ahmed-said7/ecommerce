@@ -3,15 +3,25 @@ let {addProductToCart,removeProductFromCart
     getLoggedUserCart,applyCoupon,deleteLoggedUserCart}
     =require('../services/cartServices');
 
+let {updateProductCartValidator,createCartValidator
+    ,deleteCartValidator,getCartValidator
+    ,removeProductCartValidator }
+    =require('../validator/cartValidator');
+
 let router=require('express').Router();
-let {protected}=require('../services/authServices');
 
+let {protected,allowedTo}=require('../services/authServices');
 router.use(protected);
-router.route('/')
-        .post(addProductToCart).get(getLoggedUserCart)
-        .delete(removeProductFromCart);
 
-router.route('/:id').delete(deleteLoggedUserCart).put(updateProductQuantity);
+router.route('/')
+        .post(createCartValidator,addProductToCart)
+        .get(getLoggedUserCart)
+        .delete(removeProductCartValidator,removeProductFromCart);
+
+router.route('/:id')
+    .delete(deleteCartValidator,deleteLoggedUserCart).
+    put(updateProductCartValidator,updateProductQuantity);
+
 router.route('/apply-coupon').post(applyCoupon);
 
 module.exports=router;

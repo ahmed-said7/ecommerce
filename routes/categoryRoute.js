@@ -13,12 +13,18 @@ let {uploadSingleImage,uploadMultipleImage,}=require('../middlewares/imageMiddle
 
 let router=require('express').Router();
 
+let {protected,allowedTo}=require('../services/authServices');
+router.use(protected);
+
 router.route('/').post(
     createCategoryValidator,uploadSingleImage('photo'),
     resizeSingleImage,
-    createCategory).get(getCategories);
+    createCategory).
+    get(getCategories);
 
-router.route('/:id').get(getCategory)
-        .delete(deleteCategory).put(updateCategory);
+router.route('/:id')
+    .get(getCategoryValidator,getCategory)
+    .delete(deleteCategoryValidator,deleteCategory)
+    .put(updateCategoryValidator,updateCategory);
 
 module.exports=router;

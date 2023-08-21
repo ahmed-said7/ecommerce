@@ -15,10 +15,7 @@ let cityModel=sequelize.define('city',{
         allowNull:false,
     },
     
-    active:{
-        type:DataTypes.BOOLEAN,
-        defaultValue:true,
-    },
+    
 
 },{timestamps:true});
 

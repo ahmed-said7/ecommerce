@@ -12,10 +12,21 @@ let {uploadSingleImage,uploadMultipleImage}
 
 let router=require('express').Router();
 
+let {protected,allowedTo}=require('../services/authServices');
+router.use(protected);
+
+
 router.route('/').
     post(createSubcategoryValidator,uploadSingleImage('photo'),
-    resizeSingleImage,createSubcategory).get(getSubcategories);
-router.route('/:id').get(getSubcategory)
-            .delete(deleteSubcategory).put(updateSubcategory);
+    resizeSingleImage,createSubcategory)
+    .get(getSubcategories);
+
+
+
+
+router.route('/:id')
+            .get(getSubcategoryValidator,getSubcategory)
+            .delete(deleteSubcategoryValidator,deleteSubcategory)
+            .put(updateSubcategoryValidator,updateSubcategory);
 
 module.exports=router;

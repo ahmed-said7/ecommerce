@@ -6,8 +6,7 @@ let {createOrder,checkoutSessions
 
 
 let router=require('express').Router();
-let {protected}=require('../services/authServices');
-
+let {protected,allowedTo}=require('../services/authServices');
 router.use(protected);
 
 router.route('/')

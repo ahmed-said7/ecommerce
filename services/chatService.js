@@ -15,13 +15,13 @@ let createChat=expressHandler(async(req,res,next)=>{
             chat_userModel.create({chatId,userId:val})
         })
     );
-    let docs=await chat_userModel.findAll({include:chatModel})
-    res.status(200).json({doc,'status':'success',docs});
+    // let docs=await chat_userModel.findAll({include:chatModel})
+    res.status(200).json({doc,'status':'success'});
 });
 
 let getChats=expressHandler(async(req,res,next)=>{
     let chats=await chatModel.findAll(
-        {include:chat_userModel,where:{userId:req.user.id}}
+        {include:['chat_user','message'],where:{userId:req.user.id}}
         );
     if(!chats){
         return next(new apiError('Could not find chats',400));
@@ -71,4 +71,20 @@ let removeMemberFromChat=expressHandler(async(req,res,next)=>{
     res.status(200).json({status: 'member deleted'});
 });
 
-module.exports={createChat};
+let getChat=expressHandler(async(req,res,next)=>{
+    let chats=await chatModel.findAll(
+        {
+            include:['chat_user','message'],
+            where:{userId:req.user.id,id:req.params.id}}
+        );
+    if(!chats){
+        return next(new apiError('Could not find chats',400));
+    };
+    res.status(200).json({chats,status:"success"});
+});
+
+
+
+module.exports={createChat,
+    deleteChat,getChats,
+    addMemberToChat,removeMemberFromChat,getChat};

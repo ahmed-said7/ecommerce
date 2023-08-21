@@ -12,10 +12,6 @@ let countryModel=sequelize.define('country',
         name:{
             type:DataTypes.STRING(255),
             allowNull:false,
-        },
-        active:{
-            type:DataTypes.BOOLEAN,
-            defaultValue:true,
         }
     },{timestamps:true});
 

@@ -58,4 +58,8 @@ let updateLoggedUserPassword=expressHandler(async (req, res, next) => {
     res.status(200).json({status:"success"});
 });
 
-module.exports={createUser,getUsers,getUser,deleteUser,updateUser,resizeSingleImage};
+module.exports={createUser,getUsers,getUser,
+    deleteUser,updateUser,resizeSingleImage
+    ,getLoggedUser,deleteLoggedUser,updateLoggedUser,
+    updateLoggedUserPassword
+};

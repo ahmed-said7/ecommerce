@@ -6,9 +6,17 @@ let {
 
 let router=require('express').Router();
 
+let {deleteFromWishlistValidator,addToWishlistValidator}
+    =require('../services/wishlistServices');
+
+let {protected,allowedTo}
+        =require('../services/authServices');
+    
+router.use(protected);
+
 router.route('/')
-    .post(addProductToWishlist)
+    .post(addToWishlistValidator,addProductToWishlist)
     .get(getUserWishlist)
-    .delete(removeProductFromWishlist);
+    .delete(deleteFromWishlistValidator,removeProductFromWishlist);
 
 module.exports=router;

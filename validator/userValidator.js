@@ -129,4 +129,6 @@ let updateLoggedUserValidator=[
     validatorMiddleware
 ];
 module.exports={updateUserValidator,createUserValidator
-    ,deleteUserValidator,getUserValidator};
+    ,deleteUserValidator,getUserValidator
+,updateLoggedUserPasswordValidator
+,updateLoggedUserValidator};

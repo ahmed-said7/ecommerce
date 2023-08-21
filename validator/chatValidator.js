@@ -8,12 +8,7 @@ let createChatValidator=[
     validatorMiddleware
 ];
 
-let updateChatValidator=[
-    check('id').isInt().withMessage('id should be Integer'),
-    check('name').optional().
-    isAlpha().withMessage('name should be alpha'),
-    validatorMiddleware
-];
+
 
 let deleteChatValidator=[
     check('id').isInt().withMessage('id should be Integer'),
@@ -41,5 +36,7 @@ let removeChatMemberValidator=[
     validatorMiddleware
 ];
 
-module.exports={updateChatValidator,createChatValidator
-    ,deleteChatValidator,getChatValidator};
+module.exports={createChatValidator
+    ,deleteChatValidator,
+    getChatValidator,addChatMemberValidator
+    ,removeChatMemberValidator};
